@@ -26,6 +26,19 @@
 
         :root {
             --console-offset: 52px; /* app切换行 + 状态条的预留高度，运行时同步 */
+            --dashboard-bg: #070b14;
+            --dashboard-surface: #0f172a;
+            --dashboard-panel: #111c33;
+            --dashboard-panel-alt: #0b1426;
+            --dashboard-border: rgba(79, 209, 255, 0.35);
+            --dashboard-border-strong: rgba(79, 209, 255, 0.7);
+            --dashboard-text: #e2f1ff;
+            --dashboard-text-muted: #9fb7d6;
+            --dashboard-accent: #4fd1ff;
+            --dashboard-accent-strong: #38bdf8;
+            --dashboard-success: #22c55e;
+            --dashboard-warning: #fbbf24;
+            --dashboard-danger: #f97316;
         }
 
         .container {
@@ -1713,6 +1726,325 @@
         .graph-panel-detail .detail-meta {
             color: #555;
             margin-bottom: 6px;
+        }
+
+        /* Dashboard / Command Center theme overrides */
+        body {
+            background: radial-gradient(circle at top, #1b2b52 0%, #070b14 55%, #05070e 100%);
+            color: var(--dashboard-text);
+        }
+
+        .container {
+            border: 1px solid var(--dashboard-border);
+            background: linear-gradient(135deg, rgba(8, 14, 28, 0.95), rgba(9, 16, 34, 0.95));
+            box-shadow: 0 0 30px rgba(31, 80, 155, 0.35), inset 0 0 0 1px rgba(79, 209, 255, 0.08);
+        }
+
+        .search-section,
+        .embedded-section,
+        .console-section,
+        .status-bar {
+            background-color: var(--dashboard-surface);
+            border-color: var(--dashboard-border);
+        }
+
+        .search-title {
+            color: var(--dashboard-text);
+            text-shadow: 0 0 12px rgba(79, 209, 255, 0.35);
+        }
+
+        .page-action-button,
+        .config-button,
+        .search-button,
+        .upload-button,
+        .report-button,
+        .graph-panel-button,
+        .confirm-button,
+        .config-secondary-button,
+        .config-save-button,
+        .config-start-button,
+        .config-close-button {
+            border-color: var(--dashboard-border-strong);
+            background-color: rgba(15, 23, 42, 0.85);
+            color: var(--dashboard-text);
+            box-shadow: 0 0 12px rgba(79, 209, 255, 0.2);
+        }
+
+        .page-action-button:hover,
+        .config-button:hover,
+        .search-button:hover,
+        .upload-button:hover,
+        .report-button:hover,
+        .graph-panel-button:hover,
+        .confirm-button:hover,
+        .config-secondary-button:hover,
+        .config-save-button:hover,
+        .config-start-button:hover,
+        .config-close-button:hover {
+            background-color: rgba(56, 189, 248, 0.2);
+            box-shadow: 0 0 16px rgba(79, 209, 255, 0.35);
+        }
+
+        .page-action-button.shutdown,
+        .status-shutdown-button,
+        .confirm-dialog .confirm-button.danger {
+            background-color: rgba(249, 115, 22, 0.15);
+            color: #ffd9bf;
+            border-color: rgba(249, 115, 22, 0.65);
+            box-shadow: none;
+        }
+
+        .page-action-button.shutdown:hover,
+        .status-shutdown-button:hover,
+        .confirm-dialog .confirm-button.danger:hover {
+            background-color: rgba(249, 115, 22, 0.3);
+        }
+
+        .search-box,
+        .embedded-header,
+        .app-switcher,
+        .report-controls {
+            border-color: var(--dashboard-border);
+            background-color: var(--dashboard-panel);
+        }
+
+        .search-input,
+        .config-field-input,
+        .graph-search input {
+            background-color: rgba(7, 16, 32, 0.9);
+            color: var(--dashboard-text);
+        }
+
+        .search-input::placeholder,
+        .config-field-input::placeholder {
+            color: var(--dashboard-text-muted);
+        }
+
+        .embedded-header {
+            color: var(--dashboard-text);
+            text-shadow: 0 0 10px rgba(79, 209, 255, 0.25);
+        }
+
+        .app-button {
+            background-color: rgba(12, 18, 36, 0.9);
+            border-color: var(--dashboard-border);
+            color: var(--dashboard-text-muted);
+        }
+
+        .app-button.active {
+            background: linear-gradient(135deg, rgba(79, 209, 255, 0.25), rgba(56, 189, 248, 0.1));
+            color: var(--dashboard-text);
+            box-shadow: inset 0 0 12px rgba(79, 209, 255, 0.4);
+        }
+
+        .app-button:not(.active):hover {
+            background-color: rgba(79, 209, 255, 0.12);
+        }
+
+        .app-button.locked {
+            background-color: rgba(20, 26, 44, 0.6);
+            color: #6b7a92;
+        }
+
+        .status-indicator {
+            background-color: var(--dashboard-danger);
+            box-shadow: 0 0 8px rgba(249, 115, 22, 0.7);
+        }
+
+        .status-indicator.running {
+            background-color: var(--dashboard-success);
+            box-shadow: 0 0 8px rgba(34, 197, 94, 0.7);
+        }
+
+        .status-indicator.starting {
+            background-color: var(--dashboard-warning);
+            box-shadow: 0 0 8px rgba(251, 191, 36, 0.7);
+        }
+
+        .console-output {
+            background-color: #050914;
+            color: #7cff9d;
+            border-left: 1px solid rgba(79, 209, 255, 0.12);
+        }
+
+        .console-status-bar {
+            background: linear-gradient(180deg, rgba(6, 30, 15, 0.95), rgba(5, 20, 12, 0.95));
+            color: #7cff9d;
+            border-bottom: 1px solid rgba(124, 255, 157, 0.4);
+            box-shadow: 0 2px 12px rgba(124, 255, 157, 0.2);
+        }
+
+        .status-bar {
+            border-top: 1px solid var(--dashboard-border);
+            color: var(--dashboard-text);
+        }
+
+        .upload-status {
+            color: var(--dashboard-text-muted);
+        }
+
+        .upload-status.success {
+            color: #6ef0a7;
+        }
+
+        .upload-status.error {
+            color: #ffad7b;
+        }
+
+        .message {
+            border-color: var(--dashboard-border-strong);
+            background-color: rgba(15, 23, 42, 0.95);
+            color: var(--dashboard-text);
+        }
+
+        .message.success {
+            border-color: rgba(34, 197, 94, 0.8);
+            background-color: rgba(20, 83, 45, 0.45);
+        }
+
+        .message.error {
+            border-color: rgba(249, 115, 22, 0.85);
+            background-color: rgba(96, 32, 16, 0.45);
+        }
+
+        .config-modal,
+        .confirm-dialog {
+            background-color: var(--dashboard-panel);
+            border-color: var(--dashboard-border-strong);
+            box-shadow: 0 0 24px rgba(79, 209, 255, 0.2);
+        }
+
+        .config-modal-header,
+        .config-modal-footer,
+        .confirm-header,
+        .confirm-body {
+            background-color: var(--dashboard-panel-alt);
+            border-color: var(--dashboard-border);
+            color: var(--dashboard-text);
+        }
+
+        .config-group,
+        .report-status,
+        .graph-panel,
+        .task-progress-container,
+        .report-preview,
+        .forum-message,
+        .graph-panel-detail,
+        .graph-panel-placeholder {
+            background-color: rgba(11, 20, 38, 0.95);
+            border-color: rgba(79, 209, 255, 0.25);
+            color: var(--dashboard-text);
+        }
+
+        .report-content {
+            background-color: transparent;
+        }
+
+        .report-status.loading {
+            border-color: rgba(251, 191, 36, 0.7);
+            background-color: rgba(251, 191, 36, 0.1);
+        }
+
+        .report-status.success {
+            border-color: rgba(34, 197, 94, 0.7);
+            background-color: rgba(34, 197, 94, 0.1);
+        }
+
+        .report-status.error {
+            border-color: rgba(249, 115, 22, 0.7);
+            background-color: rgba(249, 115, 22, 0.1);
+        }
+
+        .graph-panel-header {
+            background-color: var(--dashboard-panel-alt);
+            border-color: var(--dashboard-border);
+        }
+
+        .graph-panel-canvas {
+            background-color: rgba(7, 16, 32, 0.95);
+            border-color: rgba(79, 209, 255, 0.3);
+        }
+
+        .graph-panel-placeholder {
+            background-color: rgba(7, 16, 32, 0.9);
+            color: var(--dashboard-text-muted);
+        }
+
+        .graph-status-chip.graph-ready {
+            background-color: rgba(34, 197, 94, 0.15);
+            color: #7dffb5;
+        }
+
+        .graph-status-chip.graph-error {
+            background-color: rgba(249, 115, 22, 0.2);
+            color: #ffd0aa;
+        }
+
+        .task-progress-container {
+            background-color: rgba(7, 16, 32, 0.95);
+        }
+
+        .task-progress-bar {
+            background-color: rgba(79, 209, 255, 0.12);
+            border-color: rgba(79, 209, 255, 0.4);
+        }
+
+        .task-progress-fill {
+            background: linear-gradient(90deg, rgba(79, 209, 255, 0.9), rgba(56, 189, 248, 0.5));
+        }
+
+        .task-info-line {
+            background-color: rgba(8, 14, 28, 0.8);
+            border-color: rgba(79, 209, 255, 0.2);
+        }
+
+        .task-info-label {
+            color: var(--dashboard-text-muted);
+        }
+
+        .forum-message.user {
+            background-color: rgba(56, 189, 248, 0.2);
+            color: var(--dashboard-text);
+            border-color: rgba(56, 189, 248, 0.6);
+        }
+
+        .forum-message.system {
+            background-color: rgba(30, 41, 59, 0.9);
+            border-color: rgba(148, 163, 184, 0.6);
+            color: var(--dashboard-text);
+        }
+
+        .forum-message.host {
+            background-color: rgba(250, 204, 21, 0.12);
+            border-color: rgba(250, 204, 21, 0.6);
+            color: var(--dashboard-text);
+        }
+
+        .confirm-subtext,
+        .graph-panel-subtitle,
+        .graph-panel-detail .detail-meta,
+        .config-group-subtitle,
+        .upload-status,
+        .task-info-label,
+        .graph-filter-count,
+        .graph-search-status {
+            color: var(--dashboard-text-muted);
+        }
+
+        .graph-filter-item {
+            border-color: rgba(79, 209, 255, 0.4);
+            background-color: rgba(7, 16, 32, 0.7);
+            color: var(--dashboard-text);
+        }
+
+        .graph-filter-item input {
+            accent-color: var(--dashboard-accent);
+        }
+
+        .config-modal-overlay,
+        .confirm-overlay {
+            background-color: rgba(4, 8, 16, 0.75);
+            backdrop-filter: blur(4px);
         }
     </style>
 
