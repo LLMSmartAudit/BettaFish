@@ -3044,6 +3044,43 @@
             report: '/report'
         };
 
+        const searchStorageKey = 'dashboard:lastSearchQuery';
+        const iframeStoragePrefix = 'dashboard:iframeSrc:';
+
+        function storeSearchQuery(query) {
+            try {
+                localStorage.setItem(searchStorageKey, query);
+            } catch (e) {
+                console.warn('无法保存搜索内容到本地存储', e);
+            }
+        }
+
+        function getStoredSearchQuery() {
+            try {
+                return localStorage.getItem(searchStorageKey) || '';
+            } catch (e) {
+                console.warn('无法读取本地存储的搜索内容', e);
+                return '';
+            }
+        }
+
+        function storeIframeSrc(app, src) {
+            try {
+                localStorage.setItem(`${iframeStoragePrefix}${app}`, src);
+            } catch (e) {
+                console.warn('无法保存iframe地址', e);
+            }
+        }
+
+        function getStoredIframeSrc(app) {
+            try {
+                return localStorage.getItem(`${iframeStoragePrefix}${app}`);
+            } catch (e) {
+                console.warn('无法读取iframe地址', e);
+                return null;
+            }
+        }
+
         // 初始化
         document.addEventListener('DOMContentLoaded', function() {
             initializeConsoleLayers();
@@ -3051,6 +3088,13 @@
             initializeSocket();
             initializeEventListeners();
             ensureSystemReadyOnLoad();
+            const storedQuery = getStoredSearchQuery();
+            if (storedQuery) {
+                const searchInput = document.getElementById('searchInput');
+                if (searchInput) {
+                    searchInput.value = storedQuery;
+                }
+            }
             switchToApp(currentApp, { force: true });
             loadConsoleOutput(currentApp);
             // 后台预加载其他引擎的历史日志，避免切换时空白
@@ -3143,6 +3187,10 @@
         function initializeEventListeners() {
             // 搜索按钮
             document.getElementById('searchButton').addEventListener('click', performSearch);
+            document.getElementById('searchInput').addEventListener('input', function(e) {
+                storeSearchQuery(e.target.value || '');
+            });
+
             document.getElementById('searchInput').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     performSearch();
@@ -3941,6 +3989,8 @@
                 return;
             }
 
+            storeSearchQuery(query);
+
             const button = document.getElementById('searchButton');
             button.disabled = true;
             button.innerHTML = '<span class="loading"></span> 搜索中...';
@@ -4008,6 +4058,7 @@
                         if (needsUpdate) {
                             // 直接更新iframe的src来传递搜索参数
                             iframe.src = searchUrl;
+                            storeIframeSrc(app, searchUrl);
                         }
                     }
                 }
@@ -4458,7 +4509,8 @@ function getConsoleContainer() {
 
             const content = container || document.getElementById('embeddedContent');
             const iframe = document.createElement('iframe');
-            iframe.src = `http://${window.location.hostname}:${ports[app]}`;
+            const fallbackSrc = `http://${window.location.hostname}:${ports[app]}`;
+            iframe.src = getStoredIframeSrc(app) || fallbackSrc;
             iframe.style.width = '100%';
             iframe.style.height = '100%';
             iframe.style.border = 'none';
