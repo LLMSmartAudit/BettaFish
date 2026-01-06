@@ -109,15 +109,19 @@
         /* 搜索框区域 */
         .search-section {
             border-bottom: 2px solid #000000;
-            padding: 20px;
+            padding: 18px 24px;
             background-color: #ffffff;
+            display: grid;
+            grid-template-columns: minmax(240px, 1fr) minmax(360px, 2fr);
+            gap: 18px;
+            align-items: center;
         }
 
         .search-title {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
-            text-align: center;
-            margin-bottom: 20px;
+            text-align: left;
+            margin-bottom: 6px;
             letter-spacing: 1px;
         }
 
@@ -125,8 +129,7 @@
             display: flex;
             align-items: stretch;
             gap: 12px;
-            max-width: 950px;
-            margin: 0 auto 10px;
+            margin: 0;
         }
 
         .config-button {
@@ -277,17 +280,77 @@
         /* 主内容区域 */
         .main-content {
             flex: 1;
-            display: flex;
-            height: calc(100vh - 140px);
+            display: grid;
+            grid-template-columns: 240px minmax(0, 1fr);
+            gap: 16px;
+            padding: 16px;
+            height: calc(100vh - 160px);
             min-height: 0; /* 允许子元素缩小 */
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            border: 2px solid #000000;
+            background-color: #ffffff;
+            padding: 16px;
+            min-height: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #000000;
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-subtitle {
+            font-size: 12px;
+            color: #666666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 12px;
+            border-top: 1px solid #000000;
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .sidebar-footer-title {
+            font-weight: bold;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .workspace-panels {
+            display: grid;
+            grid-template-rows: minmax(320px, 1fr) minmax(220px, 0.55fr);
+            gap: 16px;
+            min-height: 0;
         }
 
         /* 嵌入页面区域 */
         .embedded-section {
-            flex: 1.8; /* 稍微缩小左侧区域 */
-            border-right: 2px solid #000000;
+            border: 2px solid #000000;
             background-color: #ffffff;
             position: relative;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
         }
 
         .embedded-header {
@@ -383,36 +446,36 @@
 
         /* 控制台输出区域 */
         .console-section {
-            flex: 1.2; /* 稍微扩大右侧区域 */
             display: flex;
             flex-direction: column;
             background-color: #ffffff;
             min-height: 0; /* 允许子元素缩小 */
             overflow: hidden; /* 防止内容溢出 */
             position: relative; /* 让状态栏悬浮不占用布局空间 */
+            border: 2px solid #000000;
         }
 
         /* 应用切换按钮 */
         .app-switcher {
             display: flex;
-            border-bottom: 2px solid #000000;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .app-button {
-            flex: 1;
-            padding: 15px;
-            border: none;
-            border-right: 2px solid #000000;
+            padding: 14px 16px;
+            border: 2px solid #000000;
             background-color: #ffffff;
             cursor: pointer;
             font-size: 14px;
             font-weight: bold;
             transition: all 0.3s ease;
             position: relative;
+            text-align: left;
         }
 
         .app-button:last-child {
-            border-right: none;
+            margin-bottom: 0;
         }
 
         .app-button.active {
@@ -1036,18 +1099,21 @@
         /* 响应式设计 */
         @media (max-width: 768px) {
             .main-content {
-                flex-direction: column;
+                grid-template-columns: 1fr;
                 height: auto;
             }
 
-            .embedded-section {
-                border-right: none;
-                border-bottom: 2px solid #000000;
-                height: 400px;
+            .search-section {
+                grid-template-columns: 1fr;
             }
 
-            .console-section {
-                height: 300px;
+            .sidebar {
+                order: 2;
+            }
+
+            .workspace-panels {
+                order: 1;
+                grid-template-rows: minmax(260px, auto) minmax(240px, auto);
             }
         }
 
@@ -1827,6 +1893,35 @@
             border-color: var(--dashboard-border);
         }
 
+        .search-section {
+            background: linear-gradient(120deg, rgba(11, 20, 38, 0.95), rgba(9, 18, 35, 0.95));
+            border-bottom: 1px solid var(--dashboard-border);
+        }
+
+        .sidebar {
+            background: linear-gradient(180deg, rgba(9, 17, 34, 0.98), rgba(7, 13, 26, 0.98));
+            border-color: var(--dashboard-border);
+            box-shadow: inset 0 0 12px rgba(79, 209, 255, 0.08);
+        }
+
+        .sidebar-header,
+        .sidebar-footer {
+            border-color: rgba(79, 209, 255, 0.2);
+        }
+
+        .sidebar-title {
+            color: var(--dashboard-text);
+        }
+
+        .sidebar-subtitle,
+        .sidebar-footer-status {
+            color: var(--dashboard-text-muted);
+        }
+
+        .sidebar-footer-title {
+            color: var(--dashboard-text);
+        }
+
         .search-title {
             color: var(--dashboard-text);
             text-shadow: 0 0 12px rgba(79, 209, 255, 0.35);
@@ -2197,10 +2292,44 @@
 
         <!-- 主内容区域 -->
         <div class="main-content">
-            <!-- 嵌入页面区域 -->
-            <div class="embedded-section">
-                <div class="embedded-header" id="embeddedHeader">嵌入的页面</div>
-                <div class="embedded-content" id="embeddedContent">
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <div class="sidebar-title">Engine Hub</div>
+                    <div class="sidebar-subtitle">Command Center</div>
+                </div>
+                <div class="app-switcher">
+                    <button class="app-button{% if default_app == 'insight' %} active{% endif %}" data-app="insight">
+                        <span class="status-indicator" id="status-insight"></span>
+                        Insight Engine
+                    </button>
+                    <button class="app-button{% if default_app == 'media' %} active{% endif %}" data-app="media">
+                        <span class="status-indicator" id="status-media"></span>
+                        Media Engine
+                    </button>
+                    <button class="app-button{% if default_app == 'query' %} active{% endif %}" data-app="query">
+                        <span class="status-indicator" id="status-query"></span>
+                        Query Engine
+                    </button>
+                    <button class="app-button{% if default_app == 'forum' %} active{% endif %}" data-app="forum">
+                        <span class="status-indicator" id="status-forum"></span>
+                        Forum Engine
+                    </button>
+                    <button class="app-button locked{% if default_app == 'report' %} active{% endif %}" data-app="report" title="需等待其余三个Agent工作完毕">
+                        <span class="status-indicator" id="status-report"></span>
+                        Report Engine
+                    </button>
+                </div>
+                <div class="sidebar-footer">
+                    <div class="sidebar-footer-title">系统状态</div>
+                    <div class="sidebar-footer-status" id="connectionStatusSidebar">连接中...</div>
+                </div>
+            </aside>
+
+            <div class="workspace-panels">
+                <!-- 嵌入页面区域 -->
+                <div class="embedded-section">
+                    <div class="embedded-header" id="embeddedHeader">嵌入的页面</div>
+                    <div class="embedded-content" id="embeddedContent">
                     <div class="engine-page{% if default_app == 'insight' %} active{% endif %}" id="insightPage" data-app="insight">
                         <div class="engine-page-banner">
                             <div class="engine-page-title">Insight Engine</div>
@@ -2270,42 +2399,19 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- 控制台输出区域 -->
-            <div class="console-section">
-                <!-- 应用切换按钮 -->
-                <div class="app-switcher">
-                    <button class="app-button{% if default_app == 'insight' %} active{% endif %}" data-app="insight">
-                        <span class="status-indicator" id="status-insight"></span>
-                        Insight Engine
-                    </button>
-                    <button class="app-button{% if default_app == 'media' %} active{% endif %}" data-app="media">
-                        <span class="status-indicator" id="status-media"></span>
-                        Media Engine
-                    </button>
-                    <button class="app-button{% if default_app == 'query' %} active{% endif %}" data-app="query">
-                        <span class="status-indicator" id="status-query"></span>
-                        Query Engine
-                    </button>
-                    <button class="app-button{% if default_app == 'forum' %} active{% endif %}" data-app="forum">
-                        <span class="status-indicator" id="status-forum"></span>
-                        Forum Engine
-                    </button>
-                    <button class="app-button locked{% if default_app == 'report' %} active{% endif %}" data-app="report" title="需等待其余三个Agent工作完毕">
-                        <span class="status-indicator" id="status-report"></span>
-                        Report Engine
-                    </button>
                 </div>
 
-                <!-- 控制台状态栏 -->
-                <div class="console-status-bar" id="consoleStatusBar">
-                    <span class="status-message"></span>
-                    <span class="status-details"></span>
-                </div>
+                <!-- 控制台输出区域 -->
+                <div class="console-section">
+                    <!-- 控制台状态栏 -->
+                    <div class="console-status-bar" id="consoleStatusBar">
+                        <span class="status-message"></span>
+                        <span class="status-details"></span>
+                    </div>
 
-                <!-- 控制台输出 -->
-                <div class="console-output" id="consoleOutput"></div>
+                    <!-- 控制台输出 -->
+                    <div class="console-output" id="consoleOutput"></div>
+                </div>
             </div>
         </div>
 
@@ -4085,9 +4191,10 @@ function getConsoleContainer() {
         function syncStatusBarPosition() {
             const bar = document.getElementById('consoleStatusBar');
             const switcher = document.querySelector('.app-switcher');
-            if (!bar || !switcher) return;
+            if (!bar) return;
 
-            const offset = switcher.offsetHeight || 0;
+            const hasInlineSwitcher = switcher && switcher.closest('.console-section');
+            const offset = hasInlineSwitcher ? (switcher.offsetHeight || 0) : 0;
             const barHeight = bar.offsetHeight || 26;
             const totalOffset = offset + barHeight + 6; // 额外预留6px缓冲
 
@@ -4618,11 +4725,14 @@ function getConsoleContainer() {
         // 根据当前的Socket/SSE状态刷新底部连接指示
         function refreshConnectionStatus() {
             const statusEl = document.getElementById('connectionStatus');
+            const sidebarStatusEl = document.getElementById('connectionStatusSidebar');
             if (!statusEl) return;
             if (socketConnected || reportStreamConnected || backendReachable) {
                 statusEl.textContent = '已连接';
+                if (sidebarStatusEl) sidebarStatusEl.textContent = '已连接';
             } else {
                 statusEl.textContent = '连接断开';
+                if (sidebarStatusEl) sidebarStatusEl.textContent = '连接断开';
             }
         }
 
