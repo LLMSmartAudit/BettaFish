@@ -1,5 +1,5 @@
 {% set default_app = default_app|default('insight') %}
-{% set page_title = page_title|default('微舆') %}
+{% set page_title = page_title|default('AquaMindNexus') %}
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -2370,11 +2370,11 @@
     <div class="container">
         <!-- 搜索框区域 -->
         <div class="search-section">
-            <div class="search-title">微舆 - 致力于打造简洁通用的舆情分析平台</div>
+            <div class="search-title">Demo-AquaMindNexus -  AI-Public Opinion Monitoring and Analysis Platform</div>
             <div class="search-row">
                 <div class="search-box">
-                    <input type="text" class="search-input" id="searchInput" placeholder="请输入要分析的内容...">
-                    <button class="search-button" id="searchButton">开始</button>
+                    <input type="text" class="search-input" id="searchInput" placeholder="enter topic...">
+                    <button class="search-button" id="searchButton">START</button>
                 </div>
             </div>
             <div class="upload-status" id="uploadStatus"></div>
@@ -2410,8 +2410,8 @@
                     </button>
                 </div>
                 <div class="sidebar-footer">
-                    <div class="sidebar-footer-title">系统状态</div>
-                    <div class="sidebar-footer-status" id="connectionStatusSidebar">连接中...</div>
+                    <div class="sidebar-footer-title">System State</div>
+                    <div class="sidebar-footer-status" id="connectionStatusSidebar">Connecting...</div>
                     <div class="sidebar-footer-actions">
                         <button class="sidebar-action-button icon-button" id="openConfigButton" title="LLM 配置" aria-label="LLM 配置">⚙️</button>
                         <button class="sidebar-action-button icon-button" id="uploadButton" title="上传模板" aria-label="上传模板">
@@ -4916,11 +4916,11 @@ function getConsoleContainer() {
             const sidebarStatusEl = document.getElementById('connectionStatusSidebar');
             if (!statusEl) return;
             if (socketConnected || reportStreamConnected || backendReachable) {
-                statusEl.textContent = '已连接';
-                if (sidebarStatusEl) sidebarStatusEl.textContent = '已连接';
+                statusEl.textContent = 'connected';
+                if (sidebarStatusEl) sidebarStatusEl.textContent = 'connected';
             } else {
-                statusEl.textContent = '连接断开';
-                if (sidebarStatusEl) sidebarStatusEl.textContent = '连接断开';
+                statusEl.textContent = 'disconnected';
+                if (sidebarStatusEl) sidebarStatusEl.textContent = 'disconnected';
             }
         }
 
