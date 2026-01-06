@@ -302,6 +302,83 @@
             overflow: hidden;
         }
 
+        .engine-page {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            position: relative;
+            gap: 12px;
+            padding: 16px;
+        }
+
+        .engine-page.active {
+            display: flex;
+        }
+
+        .engine-page-banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border: 1px solid #000000;
+            background-color: #ffffff;
+        }
+
+        .engine-page-title {
+            font-weight: bold;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .engine-page-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+        }
+
+        .engine-page-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border: 1px solid #000000;
+            font-weight: bold;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+
+        .engine-page-subtitle {
+            color: #666666;
+        }
+
+        .engine-page-body {
+            flex: 1;
+            min-height: 0;
+            position: relative;
+            border: 1px dashed #000000;
+            background-color: #ffffff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .engine-page-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #666666;
+            text-align: center;
+            padding: 20px;
+        }
+
         /* 控制台输出区域 */
         .console-section {
             flex: 1.2; /* 稍微扩大右侧区域 */
@@ -1970,6 +2047,47 @@
             color: var(--dashboard-text-muted);
         }
 
+        .engine-page-banner,
+        .engine-page-body {
+            border-color: var(--dashboard-border);
+            background-color: rgba(7, 16, 32, 0.9);
+            color: var(--dashboard-text);
+            box-shadow: inset 0 0 12px rgba(79, 209, 255, 0.08);
+        }
+
+        .engine-page-chip {
+            border-color: rgba(79, 209, 255, 0.5);
+            background-color: rgba(79, 209, 255, 0.1);
+            color: var(--dashboard-text);
+        }
+
+        .engine-page-chip.running {
+            border-color: rgba(34, 197, 94, 0.7);
+            background-color: rgba(34, 197, 94, 0.15);
+            color: #7dffb5;
+        }
+
+        .engine-page-chip.stopped {
+            border-color: rgba(249, 115, 22, 0.6);
+            background-color: rgba(249, 115, 22, 0.12);
+            color: #ffd0aa;
+        }
+
+        .engine-page-chip.starting {
+            border-color: rgba(251, 191, 36, 0.7);
+            background-color: rgba(251, 191, 36, 0.16);
+            color: #ffe8a3;
+        }
+
+        .engine-page-subtitle {
+            color: var(--dashboard-text-muted);
+        }
+
+        .engine-page-placeholder {
+            color: var(--dashboard-text-muted);
+            background: radial-gradient(circle, rgba(15, 23, 42, 0.8), rgba(7, 16, 32, 0.9));
+        }
+
         .graph-status-chip.graph-ready {
             background-color: rgba(34, 197, 94, 0.15);
             color: #7dffb5;
@@ -2081,22 +2199,73 @@
             <div class="embedded-section">
                 <div class="embedded-header" id="embeddedHeader">嵌入的页面</div>
                 <div class="embedded-content" id="embeddedContent">
+                    <div class="engine-page active" id="insightPage" data-app="insight">
+                        <div class="engine-page-banner">
+                            <div class="engine-page-title">Insight Engine</div>
+                            <div class="engine-page-meta">
+                                <span class="engine-page-chip stopped" id="insightPageStatus">未运行</span>
+                                <span class="engine-page-subtitle">洞察分析驾驶舱</span>
+                            </div>
+                        </div>
+                        <div class="engine-page-body" id="insightPageBody"></div>
+                    </div>
+
+                    <div class="engine-page" id="mediaPage" data-app="media">
+                        <div class="engine-page-banner">
+                            <div class="engine-page-title">Media Engine</div>
+                            <div class="engine-page-meta">
+                                <span class="engine-page-chip stopped" id="mediaPageStatus">未运行</span>
+                                <span class="engine-page-subtitle">多媒体情报流</span>
+                            </div>
+                        </div>
+                        <div class="engine-page-body" id="mediaPageBody"></div>
+                    </div>
+
+                    <div class="engine-page" id="queryPage" data-app="query">
+                        <div class="engine-page-banner">
+                            <div class="engine-page-title">Query Engine</div>
+                            <div class="engine-page-meta">
+                                <span class="engine-page-chip stopped" id="queryPageStatus">未运行</span>
+                                <span class="engine-page-subtitle">检索与推理指挥台</span>
+                            </div>
+                        </div>
+                        <div class="engine-page-body" id="queryPageBody"></div>
+                    </div>
+
+                    <div class="engine-page" id="forumPage" data-app="forum">
+                        <div class="engine-page-banner">
+                            <div class="engine-page-title">Forum Engine</div>
+                            <div class="engine-page-meta">
+                                <span class="engine-page-chip running" id="forumPageStatus">运行中</span>
+                                <span class="engine-page-subtitle">多智能体协同现场</span>
+                            </div>
+                        </div>
+                        <div class="engine-page-body">
                     <!-- 论坛聊天界面 -->
                     <div class="forum-container" id="forumContainer">
                         <div class="forum-chat-area" id="forumChatArea">
                             <!-- 动态添加的Engine对话消息将在这里显示 -->
                         </div>
                     </div>
-                    
-                    <!-- 报告引擎界面 -->
-                    <div class="report-container" id="reportContainer">
-                        <div class="report-content" id="reportContent">
-                            <!-- 报告内容将在这里显示 -->
                         </div>
                     </div>
                     
-                    <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #666;">
-                        <span>默认只显示第一个页面 - 点击按钮切换页面</span>
+                    <!-- 报告引擎界面 -->
+                    <div class="engine-page" id="reportPage" data-app="report">
+                        <div class="engine-page-banner">
+                            <div class="engine-page-title">Report Engine</div>
+                            <div class="engine-page-meta">
+                                <span class="engine-page-chip stopped" id="reportPageStatus">未运行</span>
+                                <span class="engine-page-subtitle">最终报告控制台</span>
+                            </div>
+                        </div>
+                        <div class="engine-page-body">
+                            <div class="report-container" id="reportContainer">
+                                <div class="report-content" id="reportContent">
+                                    <!-- 报告内容将在这里显示 -->
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -4147,7 +4316,7 @@ function getConsoleContainer() {
         let currentVisibleIframe = null; // 跟踪当前可见的iframe
 
         // 懒加载iframe - 只在真正需要时才创建
-        function lazyLoadIframe(app) {
+        function lazyLoadIframe(app, container) {
             // 如果iframe已存在，直接返回
             if (preloadedIframes[app]) {
                 return preloadedIframes[app];
@@ -4159,7 +4328,7 @@ function getConsoleContainer() {
                 return null;
             }
 
-            const content = document.getElementById('embeddedContent');
+            const content = container || document.getElementById('embeddedContent');
             const iframe = document.createElement('iframe');
             iframe.src = `http://${window.location.hostname}:${ports[app]}`;
             iframe.style.width = '100%';
@@ -4245,6 +4414,15 @@ function getConsoleContainer() {
             const content = document.getElementById('embeddedContent');
             if (!header || !content) return;
 
+            document.querySelectorAll('.engine-page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            const targetPage = document.getElementById(`${app}Page`);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
             // 如果是Forum Engine，直接显示论坛界面
             if (app === 'forum') {
                 header.textContent = 'Forum Engine - 多智能体交流';
@@ -4253,12 +4431,6 @@ function getConsoleContainer() {
                 Object.values(preloadedIframes).forEach(iframe => {
                     iframe.style.display = 'none';
                 });
-
-                // 移除占位符
-                const placeholder = content.querySelector('.status-placeholder');
-                if (placeholder) {
-                    placeholder.remove();
-                }
 
                 // 显示论坛容器，隐藏报告容器
                 document.getElementById('forumContainer').classList.add('active');
@@ -4280,12 +4452,6 @@ function getConsoleContainer() {
                     iframe.style.display = 'none';
                 });
 
-                // 移除占位符
-                const placeholder = content.querySelector('.status-placeholder');
-                if (placeholder) {
-                    placeholder.remove();
-                }
-
                 // 显示报告容器，隐藏论坛容器
                 document.getElementById('reportContainer').classList.add('active');
                 document.getElementById('forumContainer').classList.remove('active');
@@ -4306,7 +4472,8 @@ function getConsoleContainer() {
             // 如果应用正在运行，显示对应的iframe（使用懒加载）
             if (appStatus[app] === 'running') {
                 // 懒加载当前应用的iframe
-                const iframe = lazyLoadIframe(app);
+                const pageBody = document.getElementById(`${app}PageBody`);
+                const iframe = lazyLoadIframe(app, pageBody);
 
                 if (!iframe) {
                     console.error(`无法加载 ${app} iframe`);
@@ -4319,9 +4486,11 @@ function getConsoleContainer() {
                 });
 
                 // 移除占位符
-                const placeholder = content.querySelector('.status-placeholder');
-                if (placeholder) {
-                    placeholder.remove();
+                if (pageBody) {
+                    const placeholder = pageBody.querySelector('.status-placeholder');
+                    if (placeholder) {
+                        placeholder.remove();
+                    }
                 }
 
                 // 显示当前应用的iframe
@@ -4338,12 +4507,13 @@ function getConsoleContainer() {
                 });
 
                 // 显示状态信息
-                let placeholder = content.querySelector('.status-placeholder');
+                const pageBody = document.getElementById(`${app}PageBody`);
+                if (!pageBody) return;
+                let placeholder = pageBody.querySelector('.status-placeholder');
                 if (!placeholder) {
                     placeholder = document.createElement('div');
-                    placeholder.className = 'status-placeholder';
-                    placeholder.style.cssText = 'display: flex; align-items: center; justify-content: center; height: 100%; color: #666; flex-direction: column; position: absolute; top: 0; left: 0; width: 100%;';
-                    content.appendChild(placeholder);
+                    placeholder.className = 'status-placeholder engine-page-placeholder';
+                    pageBody.appendChild(placeholder);
                 }
 
                 placeholder.innerHTML = `
@@ -4397,6 +4567,12 @@ function getConsoleContainer() {
 
         // 更新应用状态
         function updateAppStatus(data) {
+            const statusLabels = {
+                running: '运行中',
+                stopped: '未运行',
+                starting: '启动中'
+            };
+
             for (const [app, info] of Object.entries(data)) {
                 // 适配实际的API格式：{app: {status: string, port: int, output_lines: int}}
                 const status = info.status === 'running' ? 'running' : 'stopped';
@@ -4405,6 +4581,12 @@ function getConsoleContainer() {
                 const indicator = document.getElementById(`status-${app}`);
                 if (indicator) {
                     indicator.className = `status-indicator ${status}`;
+                }
+
+                const statusChip = document.getElementById(`${app}PageStatus`);
+                if (statusChip) {
+                    statusChip.textContent = statusLabels[status] || status;
+                    statusChip.className = `engine-page-chip ${status}`;
                 }
             }
 
