@@ -2,9 +2,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
             font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-            background-color: #f6f7fb;
+            background: radial-gradient(circle at top, #eef2ff 0%, #f8fafc 40%, #f1f5f9 100%);
             color: #0f172a;
-        :root {
             --surface: #ffffff;
             --surface-muted: #f8fafc;
             --ink: #0f172a;
@@ -14,131 +13,64 @@
             --brand-strong: #6366f1;
             --accent: #ec4899;
             --shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
-        }
-
-        body {
-            background: radial-gradient(circle at top, #eef2ff 0%, #f8fafc 40%, #f1f5f9 100%);
-            color: var(--ink);
-        }
-
-        .container {
-            margin: 18px;
             height: calc(100vh - 36px);
+            margin: 18px;
             border: 1px solid var(--border);
             border-radius: 24px;
-            box-shadow: var(--shadow);
             background: var(--surface);
-        }
-
-        .search-section {
+            box-shadow: var(--shadow);
             border-bottom: 1px solid var(--border);
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-        }
-
-        .search-title {
-            color: var(--ink);
             letter-spacing: 0.5px;
-        }
-
-        .search-row {
+            color: var(--ink);
             gap: 16px;
-        }
-
-        .search-box {
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--ink);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+            border-radius: 12px;
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+            background: #eef2ff;
+            color: var(--brand);
+            transform: translateY(-1px);
             border: 1px solid var(--border);
             border-radius: 14px;
             overflow: hidden;
             background: var(--surface);
             box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
-        }
-
-        .search-input {
             background-color: transparent;
             color: var(--ink);
-        }
-
-        .config-button,
-        .upload-button {
-            border-radius: 12px;
-            border: 1px solid var(--border);
+            border-left: 1px solid rgba(255, 255, 255, 0.25);
+            background: linear-gradient(135deg, var(--brand), var(--accent));
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+            background: linear-gradient(135deg, var(--brand-strong), var(--accent));
+            transform: translateY(-1px);
+            border-left: 1px solid var(--border);
             background: var(--surface);
             color: var(--ink);
-            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
-        }
-
-        .config-button:hover,
-        .upload-button:hover {
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
             background: #eef2ff;
             color: var(--brand);
-        }
-
-        .search-button {
-            background: linear-gradient(135deg, var(--brand), var(--accent));
-            border-left: 1px solid rgba(255, 255, 255, 0.25);
-            color: #ffffff;
-        }
-
-        .search-button:hover {
-            background: linear-gradient(135deg, var(--brand-strong), var(--accent));
-        }
-
-        .upload-status {
+            transform: translateY(-1px);
             color: var(--ink-soft);
-        }
-
-        .embedded-section {
             border-right: 1px solid var(--border);
             background: var(--surface-muted);
-        }
-
-        .embedded-header {
             border-bottom: 1px solid var(--border);
             background: #ffffff;
             color: var(--ink);
-        }
-
-        .console-section {
             background: var(--surface);
-        }
-
-        .app-switcher {
             border-bottom: 1px solid var(--border);
             background: #ffffff;
-        }
-
-        .app-button {
             border-right: 1px solid var(--border);
             background: transparent;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
             color: var(--ink);
-        }
-
-        .app-button.active {
             background: linear-gradient(135deg, #111827, #1f2937);
-            color: #ffffff;
-        }
-
-        .console-output {
+            transform: translateY(-1px);
             margin: 12px;
             border-radius: 18px;
             background: linear-gradient(180deg, #0b1120 0%, #020617 100%);
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
             box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.2);
-        }
-
-        .console-status-bar {
-            border-bottom: 1px solid rgba(34, 197, 94, 0.3);
             background: linear-gradient(180deg, rgba(15, 118, 110, 0.95) 0%, rgba(6, 95, 70, 0.9) 100%);
-        }
-
-        .config-button,
-        .search-button,
-        .upload-button,
-        .app-button {
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
-        }
-
-        .config-button:hover,
-        .search-button:hover,
-        .upload-button:hover,
-        .app-button:hover {
-            transform: translateY(-1px);
-        }
+            border-bottom: 1px solid rgba(34, 197, 94, 0.3);
