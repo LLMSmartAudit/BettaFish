@@ -782,6 +782,31 @@ def index():
     """主页"""
     return render_template('index.html')
 
+@app.route('/insight')
+def insight_page():
+    """Insight Engine 页面"""
+    return render_template('insight.html')
+
+@app.route('/media')
+def media_page():
+    """Media Engine 页面"""
+    return render_template('media.html')
+
+@app.route('/query')
+def query_page():
+    """Query Engine 页面"""
+    return render_template('query.html')
+
+@app.route('/forum')
+def forum_page():
+    """Forum Engine 页面"""
+    return render_template('forum.html')
+
+@app.route('/report')
+def report_page():
+    """Report Engine 页面"""
+    return render_template('report.html')
+
 @app.route('/api/status')
 def get_status():
     """获取所有应用状态"""
